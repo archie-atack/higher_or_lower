@@ -29,6 +29,7 @@ function countUpAppearances(playerAppearances, displayElement) {
     let currentCount = 0;
     let increment = 1;
     
+    if (playerAppearances > 50) increment = 2;  // Increase the increment for higher numbers
     if (playerAppearances > 100) increment = 5;  // Increase the increment for higher numbers
     if (playerAppearances > 200) increment = 10; // Make it even faster for large numbers
     
@@ -94,34 +95,35 @@ document.getElementById('lower-btn').addEventListener('click', () => {
 
 // Check if the user's answer is correct
 function checkAnswer(isHigher) {
-    const correct = (isHigher && rightPlayer.appearances >= leftPlayer.appearances) ||
-                    (!isHigher && rightPlayer.appearances <= leftPlayer.appearances);
+    const correct = (isHigher && rightPlayer.appearances >= leftPlayer.appearances) || // Include equality check
+                    (!isHigher && rightPlayer.appearances <= leftPlayer.appearances); // Include equality check
 
     // Get the appearances display element
     const rightAppearances = document.getElementById('right-appearances');
 
     // Show the appearances and start the count-up
     rightAppearances.style.display = 'block'; // Show appearances
-    if (correct) {
-        score++;
-        scoreDisplay.innerText = `Score: ${score}`;
 
-        // Start the counting of appearances
-        countUpAppearances(rightPlayer.appearances, rightAppearances);
+    // Start the counting of appearances regardless of correctness
+    countUpAppearances(rightPlayer.appearances, rightAppearances);
 
-        // Delay the transition to the next player until the counting animation completes
-        setTimeout(() => {
+    // Delay the transition to the next player or game over until after the count-up finishes
+    setTimeout(() => {
+        if (correct) {
+            score++;
+            scoreDisplay.innerText = `Score: ${score}`;
+
+            // Prepare for the next player
             leftPlayer = rightPlayer;
             updateLeftPlayer();
             rightPlayer = getRandomPlayer();
             updateRightPlayer();
-        }, 2000); // 2 second delay after counting finishes
-    } else {
-        setTimeout(() => {
+        } else {
             endGame(); // Show the game over screen after a delay
-        }, 2000); // Delay before moving to the game over screen
-    }
+        }
+    }, 2000); // Delay before moving to the next player or showing game over
 }
+
 
 // End the game
 function endGame() {
