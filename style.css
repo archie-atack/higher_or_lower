@@ -23,7 +23,12 @@ h1 {
 h3 {
     font-size: 18px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+}
+
+h4 {
+    font-size: 12px;
+    color: grey;
 }
 
 /* Game Container */
@@ -81,12 +86,12 @@ button:hover {
 
 /* Lower button style - yellow/orange */
 #lower-btn {
-    background-color: #f9c014; /* Yellow/Orange */
+    background-color: #fb8c00; /* Yellow/Orange */
     color: white;
 }
 
 #lower-btn:hover {
-    background-color: #ffa726; /* Darker yellow/orange */
+    background-color: #ef6c00; /* Darker yellow/orange */
 }
 
 
@@ -111,6 +116,16 @@ button:hover {
 
 #game-over {
     display: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#game-over-message {
+    margin-top: 20px;
+}
+
+#play-again-btn {
+    margin-top: 20px;
 }
 
 #game-over.visible {

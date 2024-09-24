@@ -1,18 +1,3 @@
-// Player data - List of players and their appearances
-const playersData = [
-    { name: 'Jude Bellingham', appearances: 44 },
-    { name: 'Barry Ferguson', appearances: 169 },
-    { name: 'Seb Larsson', appearances: 205 },
-    { name: 'Trevor Francis', appearances: 280 },
-    { name: 'Stephen Carr', appearances: 107 },
-    { name: 'Mikael Forssell', appearances: 119 },
-    { name: 'Damien Johnson', appearances: 269 },
-    { name: 'Maik Taylor', appearances: 243 },
-    { name: 'Robbie Savage', appearances: 128 },
-    { name: 'Lukas Jutkiewicz', appearances: 207 }
-    // Add more players here if necessary
-];
-
 // DOM Elements
 const leftName = document.getElementById('left-name');
 const leftAppearances = document.getElementById('left-appearances');
@@ -108,8 +93,8 @@ function endGame() {
         highScoreDisplay.innerText = `High Score: ${highScore}`; // Update high score display
     }
 
-    const message = score >= 5 ? "Great job!" : "Better luck next time!";
-    gameOverMessage.innerText = `Your score: ${score}. ${message}\nHigh Score: ${highScore}`;
+    const message = score >= 50 ? "Great job!" : "Better luck next time!";
+    gameOverMessage.innerText = `Your score: ${score}. ${message}`;
 }
 
 // Show Well Done Screen when all players have been guessed
@@ -124,7 +109,7 @@ function showWellDoneScreen() {
         highScoreDisplay.innerText = `High Score: ${highScore}`;
     }
 
-    gameOverMessage.innerText = `Well done! You've guessed all the players! Final score: ${score}. High Score: ${highScore}`;
+    gameOverMessage.innerText = `Well done! You've guessed all the players! Final score: ${score}.`;
 }
 
 // Play Again Button
