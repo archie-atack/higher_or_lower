@@ -94,8 +94,8 @@ document.getElementById('lower-btn').addEventListener('click', () => {
 
 // Check if the user's answer is correct
 function checkAnswer(isHigher) {
-    const correct = (isHigher && rightPlayer.appearances > leftPlayer.appearances) ||
-                    (!isHigher && rightPlayer.appearances < leftPlayer.appearances);
+    const correct = (isHigher && rightPlayer.appearances >= leftPlayer.appearances) ||
+                    (!isHigher && rightPlayer.appearances <= leftPlayer.appearances);
 
     // Get the appearances display element
     const rightAppearances = document.getElementById('right-appearances');
