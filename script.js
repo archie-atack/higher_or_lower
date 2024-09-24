@@ -23,6 +23,27 @@ function getRandomPlayer() {
     return player;
 }
 
+
+// Function to count up from 0 to the player's appearances
+function countUpAppearances(playerAppearances, displayElement) {
+    let currentCount = 0;
+    let increment = 1;
+    
+    if (playerAppearances > 100) increment = 5;  // Increase the increment for higher numbers
+    if (playerAppearances > 200) increment = 10; // Make it even faster for large numbers
+    
+    let interval = setInterval(function() {
+        currentCount += increment;
+        displayElement.innerText = `Appearances: ${currentCount}`; // Update the display
+        
+        if (currentCount >= playerAppearances) {
+            clearInterval(interval);
+            displayElement.innerText = `Appearances: ${playerAppearances}`; // Ensure the final count is accurate
+        }
+    }, 30); // Speed of counting (faster for large increments)
+}
+
+
 // Start the game by setting the first two players
 function startGame() {
     players = [...playersData]; // Reset the players list
@@ -46,14 +67,21 @@ function updateLeftPlayer() {
     leftAppearances.innerText = `Appearances: ${leftPlayer.appearances}`;
 }
 
-// Update Right Player UI
+// Update Right Player UI without showing appearances yet
 function updateRightPlayer() {
     if (rightPlayer === null) {
         showWellDoneScreen(); // No more players left to choose
         return;
     }
+
+    // Show the name of the second player immediately
     rightName.innerText = rightPlayer.name;
+
+    // Initially hide the appearances
+    const rightAppearances = document.getElementById('right-appearances');
+    rightAppearances.style.display = 'none'; // Hide appearances initially
 }
+
 
 // Handle Higher or Lower Button Clicks
 document.getElementById('higher-btn').addEventListener('click', () => {
@@ -69,15 +97,29 @@ function checkAnswer(isHigher) {
     const correct = (isHigher && rightPlayer.appearances > leftPlayer.appearances) ||
                     (!isHigher && rightPlayer.appearances < leftPlayer.appearances);
 
+    // Get the appearances display element
+    const rightAppearances = document.getElementById('right-appearances');
+
+    // Show the appearances and start the count-up
+    rightAppearances.style.display = 'block'; // Show appearances
     if (correct) {
         score++;
         scoreDisplay.innerText = `Score: ${score}`;
-        leftPlayer = rightPlayer;
-        updateLeftPlayer();
-        rightPlayer = getRandomPlayer();
-        updateRightPlayer();
+
+        // Start the counting of appearances
+        countUpAppearances(rightPlayer.appearances, rightAppearances);
+
+        // Delay the transition to the next player until the counting animation completes
+        setTimeout(() => {
+            leftPlayer = rightPlayer;
+            updateLeftPlayer();
+            rightPlayer = getRandomPlayer();
+            updateRightPlayer();
+        }, 2000); // 2 second delay after counting finishes
     } else {
-        endGame();
+        setTimeout(() => {
+            endGame(); // Show the game over screen after a delay
+        }, 2000); // Delay before moving to the game over screen
     }
 }
 
