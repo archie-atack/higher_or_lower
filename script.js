@@ -26,24 +26,32 @@ function getRandomPlayer() {
 }
 
 // Function to count up from 0 to the player's appearances
+let countInterval; // Declare a global variable to track the interval
+
 function countUpAppearances(playerAppearances, displayElement) {
     let currentCount = 0;
     let increment = 1;
+    
+    // Clear any previous interval to prevent overlaps
+    if (countInterval) {
+        clearInterval(countInterval);
+    }
     
     if (playerAppearances > 50) increment = 2;  // Increase the increment for higher numbers
     if (playerAppearances > 100) increment = 5;  // Increase the increment for higher numbers
     if (playerAppearances > 200) increment = 10; // Make it even faster for large numbers
     
-    let interval = setInterval(function() {
+    countInterval = setInterval(function() {
         currentCount += increment;
         displayElement.innerText = `Appearances: ${currentCount}`; // Update the display
         
         if (currentCount >= playerAppearances) {
-            clearInterval(interval);
+            clearInterval(countInterval); // Stop the count when the target is reached
             displayElement.innerText = `Appearances: ${playerAppearances}`; // Ensure the final count is accurate
         }
     }, 30); // Speed of counting (faster for large increments)
 }
+
 
 // Start the game by setting the first two players
 function startGame() {

@@ -6,7 +6,7 @@ const playersData = [
     { name: 'Martin Grainger', appearances: 266 },
     { name: 'Maxime Colin', appearances: 253 },
     { name: 'Maik Taylor', appearances: 242 },
-    { name: 'Martin O\'Connor', apfpearances: 223 },
+    { name: 'Martin O\'Connor', appearances: 223 },
     { name: 'Stan Lazaridis', appearances: 222 },
     { name: 'Damien Johnson', appearances: 216 },
     { name: 'Sebastian Larsson', appearances: 205 },
